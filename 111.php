@@ -3,7 +3,7 @@
 function alphabeticalOrder($str) {
     $chars = str_split($str); 
     sort($chars);            
-    return implode('', $chars); 
+    return implode('', $chars);
 }
 
 $input = 'alphabetical';

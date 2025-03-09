@@ -19,7 +19,7 @@ function mostRecent($text) {
         return "Текст не содержит слов";
     }
 
-    $wordCounts = array_count_values($words);
+    $wordCounts = array_count_values($words); 
 
     $maxCount = max($wordCounts);
 
