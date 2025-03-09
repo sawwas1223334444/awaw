@@ -1,11 +1,12 @@
 <?php
+$vvod = readline("Введите строку:");
 
-function alphabeticalOrder($str) {
-    $chars = str_split($str); 
-    sort($chars);            
-    return implode('', $chars);
+$res = alphabeticalOrder($vvod);
+echo "Итог: $res";
+
+function alphabeticalOrder(string &$vvod):string
+{
+    $vvod = str_split($vvod);
+    sort($vvod);
+    return implode('', $vvod);
 }
-
-$input = 'alphabetical';
-$result = alphabeticalOrder($input);
-echo $result; 

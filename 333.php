@@ -1,38 +1,39 @@
 <?php
 
-function mostRecent($text) {
+$text = "Животные, птица, рыба, змеи, рыба, зверь, собака.";
+echo mostRecent($text);
 
+function mostRecent(string $text):string 
+{  
     if (strlen($text) > 1000) {
-        return "Текст слишком длинный";
+        return "Текст превышает 1000 символов.";
     }
 
     $text = strtolower($text);
-    $text = preg_replace('/[^\w\s]/u', '', $text);
+    $text = str_replace([',', '.', '!', '?', ';', ':', "'", '!'], '', $text);
+    $slova = explode(' ', $text);
+    
+    $kolichWords = [];
 
-    $words = explode(' ', $text);
+    foreach ($slova as $slovo) {
+        if (isset($kolichWords[$slovo])) {
+            $kolichWords[$slovo]++;
+        } else {
+            $kolichWords[$slovo] = 1;
+        }
+    }
+    print_r( $kolichWords);
 
-    $words = array_filter($words, function($word) {
-        return !empty($word);
-    });
 
-    if (empty($words)) {
-        return "Текст не содержит слов";
+    $chastoeSlovo = '';
+    $maxKol = 0;
+
+    foreach ( $kolichWords as $slovo => $kol) {
+        if ($kol > $maxKol) {
+            $chastoeSlovo = $slovo;
+            $maxKol = $kol;
+        }
     }
 
-    $wordCounts = array_count_values($words); 
-
-    $maxCount = max($wordCounts);
-
-    $mostFrequentWords = array_keys($wordCounts, $maxCount);
-
-    return $mostFrequentWords;
-}
-
-$text = "Животные, птица, рыба, змеи, рыба, зверь, собака.";
-$result = mostRecent($text);
-
-if (is_array($result)) {
-    echo "Самое частое слово: " . implode(', ', $result);
-} else {
-    echo $result; 
+    return  $chastoeSlovo;
 }
